@@ -1,0 +1,815 @@
+:root {
+    --bg-color: #000;
+    --desktop-bg: url('assets/wallpapers/desktop-bg.jpg');
+    --taskbar-bg: rgba(32, 32, 32, 0.75);
+    --start-menu-bg: rgba(32, 32, 32, 0.85);
+    --glass-border: 1px solid rgba(255, 255, 255, 0.1);
+    --text-color: #fff;
+    --hover-bg: rgba(255, 255, 255, 0.1);
+}
+
+* {
+    box-sizing: border-box;
+    user-select: none;
+    cursor: default;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    height: 100vh;
+    width: 100vw;
+}
+
+/* Boot Screen */
+#boot-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 1s ease-out;
+}
+
+.logo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+}
+
+.windows-logo {
+    width: 100px;
+    height: 100px;
+}
+
+.loader {
+    display: flex;
+    gap: 10px;
+}
+
+/* Very simple spinner for now */
+.loader .circle {
+    width: 5px;
+    height: 5px;
+    background-color: white;
+    border-radius: 50%;
+    animation: loading 2s infinite ease-in-out;
+}
+
+.loader .circle:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.loader .circle:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.loader .circle:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+.loader .circle:nth-child(4) {
+    animation-delay: 0.6s;
+}
+
+.loader .circle:nth-child(5) {
+    animation-delay: 0.8s;
+}
+
+@keyframes loading {
+
+    0%,
+    100% {
+        transform: translateY(0);
+        opacity: 0.5;
+    }
+
+    50% {
+        transform: translateY(-10px);
+        opacity: 1;
+    }
+}
+
+.loader.hidden {
+    display: none;
+}
+
+.boot-user-name {
+    font-size: 24px;
+    font-weight: 300;
+    margin-top: 20px;
+    color: white;
+    opacity: 0.9;
+}
+
+.boot-button {
+    margin-top: 20px;
+    padding: 10px 30px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.boot-button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-color: white;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+}
+
+/* Desktop */
+#desktop {
+    width: 100%;
+    height: 100%;
+    background-image: var(--desktop-bg);
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    opacity: 1;
+    transition: opacity 1s ease-in;
+}
+
+#desktop.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Desktop Icons */
+#desktop-icons {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: fit-content;
+}
+
+.desktop-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80px;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.2s;
+    cursor: pointer;
+}
+
+.desktop-icon:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.desktop-icon img {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 5px;
+}
+
+.desktop-icon span {
+    font-size: 12px;
+    text-align: center;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+/* Taskbar */
+#taskbar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 48px;
+    background-color: var(--taskbar-bg);
+    backdrop-filter: blur(15px);
+    display: flex;
+    justify-content: space-between;
+    /* To balance side and center */
+    align-items: center;
+    padding: 0 15px;
+    z-index: 1000;
+    border-top: var(--glass-border);
+}
+
+.taskbar-icons {
+    display: flex;
+    gap: 5px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 100%;
+    align-items: center;
+}
+
+.start-button,
+.taskbar-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.2s;
+    position: relative;
+}
+
+.start-button:hover,
+.taskbar-icon:hover {
+    background-color: var(--hover-bg);
+}
+
+.start-button:active,
+.taskbar-icon:active {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: scale(0.95);
+}
+
+.start-button img,
+.taskbar-icon img {
+    width: 24px;
+    height: 24px;
+}
+
+.taskbar-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    height: 100%;
+}
+
+.system-tray {
+    display: flex;
+    gap: 12px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    align-items: center;
+}
+
+.system-tray img {
+    width: 16px;
+    height: 16px;
+    opacity: 0.9;
+}
+
+.system-tray:hover {
+    background-color: var(--hover-bg);
+}
+
+.datetime {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    font-size: 11px;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.datetime:hover {
+    background-color: var(--hover-bg);
+}
+
+/* Start Menu */
+#start-menu {
+    position: absolute;
+    bottom: 60px;
+    /* taskbar height + margin */
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    width: 600px;
+    height: 650px;
+    background-color: var(--start-menu-bg);
+    backdrop-filter: blur(20px);
+    border-radius: 8px;
+    border: var(--glass-border);
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s cubic-bezier(0.1, 0.9, 0.2, 1);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 999;
+}
+
+#start-menu.active {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+    pointer-events: all;
+}
+
+.start-content {
+    padding: 30px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.search-bar input {
+    width: 100%;
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: none;
+    background-color: rgba(0, 0, 0, 0.3);
+    color: white;
+    outline: none;
+    border: 1px solid transparent;
+}
+
+.search-bar input:focus {
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.pinned-section {
+    margin-top: 20px;
+    flex-grow: 1;
+}
+
+.pinned-section h4 {
+    margin-bottom: 15px;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.pinned-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+}
+
+.app-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.app-item:hover {
+    background-color: var(--hover-bg);
+}
+
+.app-item img {
+    width: 32px;
+    height: 32px;
+    margin-bottom: 5px;
+}
+
+.app-item span {
+    font-size: 11px;
+}
+
+.user-profile {
+    margin-top: auto;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.user-info:hover {
+    background-color: var(--hover-bg);
+}
+
+.user-info img {
+    width: 30px;
+    height: 30px;
+}
+
+.power-btn {
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.power-btn:hover {
+    background-color: var(--hover-bg);
+}
+
+.power-btn img {
+    width: 20px;
+    height: 20px;
+    filter: invert(1);
+}
+
+/* Utilities */
+.hidden {
+    display: none !important;
+}
+
+/* Window Styles */
+.window {
+    position: absolute;
+    width: 800px;
+    height: 500px;
+    background-color: #202020;
+    /* Dark mode base */
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    min-width: 300px;
+    min-height: 200px;
+    resize: both;
+    /* Allow native resizing if supported, mostly need handles though */
+}
+
+.window.active {
+    z-index: 100 !important;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+}
+
+.window.maximized {
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: calc(100% - 48px) !important;
+    /* Subtract taskbar height */
+    border-radius: 0;
+}
+
+/* Taskbar Active Indicator */
+.taskbar-icon.open::after {
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    width: 6px;
+    height: 3px;
+    background-color: #00d8d8;
+    /* Cyan indicator */
+    border-radius: 2px;
+}
+
+/* Window Animation */
+@keyframes windowOpen {
+    from {
+        opacity: 0;
+        transform: scale(0.95) translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.window {
+    animation: windowOpen 0.2s cubic-bezier(0.1, 0.9, 0.2, 1);
+}
+
+/* Context Menu */
+#context-menu {
+    position: absolute;
+    width: 250px;
+    background-color: rgba(32, 32, 32, 0.95);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    transform-origin: top left;
+    transition: opacity 0.1s;
+}
+
+#context-menu.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    padding: 8px 10px;
+    border-radius: 4px;
+    cursor: default;
+    font-size: 13px;
+    gap: 10px;
+}
+
+.menu-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.menu-item .icon {
+    width: 16px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.menu-item .arrow {
+    margin-left: auto;
+    font-size: 16px;
+}
+
+.separator {
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.1);
+    margin: 5px 0;
+}
+
+/* Calendar Panel */
+#calendar-panel {
+    position: absolute;
+    bottom: 60px;
+    right: 15px;
+    width: 360px;
+    background-color: var(--start-menu-bg);
+    backdrop-filter: blur(20px);
+    border: var(--glass-border);
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s cubic-bezier(0.1, 0.9, 0.2, 1), opacity 0.3s;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(20px);
+    z-index: 1000;
+}
+
+#calendar-panel.active {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: all;
+}
+
+.notification-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    margin-bottom: 20px;
+}
+
+.clear-all {
+    color: #0078d4;
+    cursor: pointer;
+}
+
+.no-notifications {
+    text-align: center;
+    color: #aaa;
+    margin-bottom: 30px;
+    font-size: 13px;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 0 10px;
+}
+
+.cal-nav {
+    display: flex;
+    gap: 15px;
+    cursor: pointer;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    text-align: center;
+    font-size: 13px;
+}
+
+.day-name {
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.day {
+    padding: 8px;
+    border-radius: 50%;
+    cursor: default;
+}
+
+.day:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.day.fade {
+    color: #666;
+}
+
+.day.current {
+    background-color: #0078d4;
+    color: white;
+}
+
+/* Terminal App Styles */
+.terminal-window {
+    background-color: #0c0c0c;
+    color: #cccccc;
+    font-family: 'Consolas', monospace;
+    padding: 10px;
+    height: 100%;
+    overflow-y: auto;
+    font-size: 14px;
+}
+
+.terminal-line {
+    margin-bottom: 5px;
+    word-wrap: break-word;
+}
+
+.terminal-input-line {
+    display: flex;
+}
+
+.prompt {
+    color: #16c60c;
+    /* Matrix green or classic cmd green/white mix, PS is usually white/yellow/green path */
+    margin-right: 5px;
+}
+
+.cmd-input {
+    background: transparent;
+    border: none;
+    color: #cccccc;
+    font-family: 'Consolas', monospace;
+    font-size: 14px;
+    flex-grow: 1;
+    outline: none;
+}
+
+.title-bar {
+    height: 32px;
+    background-color: rgba(32, 32, 32, 0.9);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 10px;
+    user-select: none;
+}
+
+.title-bar .title-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 12px;
+}
+
+.title-bar img {
+    width: 16px;
+    height: 16px;
+}
+
+.window-controls {
+    display: flex;
+    height: 100%;
+}
+
+.control-btn {
+    width: 46px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    cursor: default;
+    transition: background-color 0.1s;
+}
+
+.control-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.control-btn.close-btn:hover {
+    background-color: #e81123;
+}
+
+.window-content {
+    flex-grow: 1;
+    background-color: #1a1a1a;
+    color: white;
+    overflow: auto;
+    position: relative;
+}
+
+/* App Specific Content Styles */
+.app-container {
+    padding: 20px;
+    height: 100%;
+}
+
+.contact-header,
+.projects-header {
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 15px;
+}
+
+h1 {
+    font-size: 24px;
+    margin: 0;
+    font-weight: 300;
+}
+
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.project-card {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 5px;
+    padding: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.project-card:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+.project-card h3 {
+    margin: 0 0 10px 0;
+    font-size: 16px;
+}
+
+.project-card p {
+    font-size: 13px;
+    color: #ccc;
+    margin-bottom: 15px;
+}
+
+.project-link {
+    display: inline-block;
+    padding: 5px 15px;
+    background-color: #0078d4;
+    color: white;
+    text-decoration: none;
+    font-size: 12px;
+    border-radius: 4px;
+}
+
+.project-link:hover {
+    background-color: #006abc;
+}
+
+.contact-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 5px;
+    text-decoration: none;
+    color: white;
+    transition: background-color 0.2s;
+}
+
+.contact-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.contact-item i {
+    /* Placeholder for icons if we use fontawesome later */
+    font-size: 24px;
+}
+
+.contact-info h3 {
+    margin: 0;
+    font-size: 16px;
+}
+
+.contact-info p {
+    margin: 5px 0 0 0;
+    /* Updated margin */
+    font-size: 12px;
+    color: #aaa;
+}

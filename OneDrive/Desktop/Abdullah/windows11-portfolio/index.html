@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Windows 11 Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Boot Screen -->
+    <div id="boot-screen">
+        <div class="logo-container">
+            <svg class="windows-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 88 88">
+                <path fill="#ffffff" d="M0 0h42v42H0zM46 0h42v42H46zM0 46h42v42H0zM46 46h42v42H46z" />
+            </svg>
+            <div class="loader hidden" id="boot-loader">
+                <div class="circle"></div>
+                <div class="circle"></div>
+                <div class="circle"></div>
+                <div class="circle"></div>
+                <div class="circle"></div>
+            </div>
+            <div class="boot-user-name">Abdullah Masood</div>
+            <button id="boot-btn" class="boot-button">Power On</button>
+        </div>
+    </div>
+
+    <!-- Desktop Environment -->
+    <div id="desktop" class="hidden">
+
+        <!-- Desktop Icons/Grid -->
+        <div id="desktop-icons">
+            <!-- Icons will be placed here -->
+            <div class="desktop-icon" data-app="this-pc">
+                <img src="assets/icons/this-pc.png" alt="This PC">
+                <span>This PC</span>
+            </div>
+            <div class="desktop-icon" data-app="edge">
+                <img src="assets/icons/edge.png" alt="Microsoft Edge">
+                <span>Microsoft Edge</span>
+            </div>
+            <div class="desktop-icon" data-app="bin">
+                <img src="assets/icons/trash.png" alt="Recycle Bin">
+                <span>Recycle Bin</span>
+            </div>
+            <div class="desktop-icon" data-app="terminal">
+                <img src="assets/icons/terminal.png" alt="Terminal">
+                <span>Terminal</span>
+            </div>
+        </div>
+
+        <!-- Windows Container -->
+        <div id="window-area">
+            <!-- Open windows go here -->
+        </div>
+
+        <!-- Context Menu -->
+        <div id="context-menu" class="glass-panel hidden">
+            <div class="menu-item">
+                <span class="icon">⊞</span>
+                <span>View</span>
+                <span class="arrow">›</span>
+            </div>
+            <div class="menu-item">
+                <span class="icon">⇅</span>
+                <span>Sort by</span>
+                <span class="arrow">›</span>
+            </div>
+            <div class="menu-item" id="refresh-btn">
+                <span class="icon">↻</span>
+                <span>Refresh</span>
+            </div>
+            <div class="separator"></div>
+            <div class="menu-item">
+                <span class="icon">⊕</span>
+                <span>New</span>
+                <span class="arrow">›</span>
+            </div>
+            <div class="separator"></div>
+            <div class="menu-item">
+                <span class="icon">⚙</span>
+                <span>Display settings</span>
+            </div>
+            <div class="menu-item">
+                <span class="icon">🖌</span>
+                <span>Personalize</span>
+            </div>
+            <div class="separator"></div>
+            <div class="menu-item">
+                <span class="icon">💻</span>
+                <span>Open in Terminal</span>
+            </div>
+            <div class="menu-item">
+                <span class="icon">★</span>
+                <span>Show more options</span>
+            </div>
+        </div>
+
+        <!-- Calendar & Notification Panel -->
+        <div id="calendar-panel" class="glass-panel">
+            <div class="notification-header">
+                <span>Notifications</span>
+                <span class="clear-all">Clear all</span>
+            </div>
+            <div class="no-notifications">
+                <span>No new notifications</span>
+            </div>
+            <div class="calendar-container">
+                <div class="calendar-header">
+                    <span id="cal-month-year">January 2026</span>
+                    <div class="cal-nav">
+                        <span>‹</span>
+                        <span>›</span>
+                    </div>
+                </div>
+                <div class="calendar-grid">
+                    <div class="day-name">Mo</div>
+                    <div class="day-name">Tu</div>
+                    <div class="day-name">We</div>
+                    <div class="day-name">Th</div>
+                    <div class="day-name">Fr</div>
+                    <div class="day-name">Sa</div>
+                    <div class="day-name">Su</div>
+                    <!-- Mock Days -->
+                    <div class="day fade">29</div>
+                    <div class="day fade">30</div>
+                    <div class="day fade">31</div>
+                    <div class="day">1</div>
+                    <div class="day">2</div>
+                    <div class="day">3</div>
+                    <div class="day">4</div>
+                    <div class="day">5</div>
+                    <div class="day">6</div>
+                    <div class="day">7</div>
+                    <div class="day">8</div>
+                    <div class="day">9</div>
+                    <div class="day">10</div>
+                    <div class="day">11</div>
+                    <div class="day">12</div>
+                    <div class="day">13</div>
+                    <div class="day">14</div>
+                    <div class="day">15</div>
+                    <div class="day">16</div>
+                    <div class="day">17</div>
+                    <div class="day">18</div>
+                    <div class="day">19</div>
+                    <div class="day">20</div>
+                    <div class="day">21</div>
+                    <div class="day">22</div>
+                    <div class="day">23</div>
+                    <div class="day">24</div>
+                    <div class="day">25</div>
+                    <div class="day">26</div>
+                    <div class="day">27</div>
+                    <div class="day current">28</div>
+                    <div class="day">29</div>
+                    <div class="day">30</div>
+                    <div class="day">31</div>
+                    <div class="day fade">1</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Taskbar -->
+        <div id="taskbar">
+            <div class="start-button" id="start-btn">
+                <img src="assets/icons/start.png" alt="Start">
+            </div>
+            <div class="taskbar-icons">
+                <!-- Pinned Apps -->
+                <div class="taskbar-icon" data-app="projects">
+                    <img src="assets/icons/projects.png" alt="Projects">
+                </div>
+                <div class="taskbar-icon" data-app="contact">
+                    <img src="assets/icons/contact.png" alt="Contact">
+                </div>
+                <div class="taskbar-icon" data-app="vscode">
+                    <img src="assets/icons/vscode.png" alt="VS Code">
+                </div>
+            </div>
+            <div class="taskbar-right">
+                <div class="system-tray">
+                    <img src="assets/icons/wifi.png" alt="Wifi">
+                    <img src="assets/icons/volume.png" alt="Volume">
+                    <img src="assets/icons/battery.png" alt="Battery">
+                </div>
+                <div class="datetime" id="clock">
+                    <div id="time">12:00 PM</div>
+                    <div id="date">1/1/2026</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Start Menu -->
+        <div id="start-menu" class="glass-panel">
+            <div class="start-content">
+                <div class="search-bar">
+                    <input type="text" placeholder="Type here to search">
+                </div>
+                <div class="pinned-section">
+                    <h4>Pinned</h4>
+                    <div class="pinned-grid">
+                        <div class="app-item" data-app="edge">
+                            <img src="assets/icons/edge-fluency.png" alt="Edge">
+                            <span>Edge</span>
+                        </div>
+                        <div class="app-item" data-app="projects">
+                            <img src="assets/icons/projects.png" alt="Projects">
+                            <span>Projects</span>
+                        </div>
+                        <div class="app-item" data-app="contact">
+                            <img src="assets/icons/contact.png" alt="Contact">
+                            <span>Contact</span>
+                        </div>
+                        <div class="app-item" data-app="vscode">
+                            <img src="assets/icons/vscode.png" alt="Code">
+                            <span>Code</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="user-profile">
+                    <div class="user-info">
+                        <img src="assets/icons/user.png" alt="User">
+                        <span>Abdullah Masood</span>
+                    </div>
+                    <div class="power-btn">
+                        <img src="assets/icons/shutdown.png" alt="Power">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
